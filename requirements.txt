@@ -1,4 +1,7 @@
 Django==2.2.5
 django-crispy-forms==1.7.2
+djangorestframework==3.10.3
+djangorestframework-simplejwt==4.3.0
+PyJWT==1.7.1
 pytz==2019.2
 sqlparse==0.3.0

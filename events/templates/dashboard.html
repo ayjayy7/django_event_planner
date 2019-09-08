@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	<h5> Dashboared: </h5>
+  {% for e in events %}
+  
+{% if request.user == e.organizer %}
+   <div class="card-body">
+    <h5 class="card-title" style="color: 000034;">{{e.title}} <span>
+   
+    </span>
+    </h5>
+    <p class="card-text" style="color: 000034;">{{e.organizer}}</p>
+    <p class="card-text" style="color: 000034;">{{e.seats}}</p>
+{%endif%} 
+    {% endfor %}
+
+{% endblock content %}
+
+
+{# filter #}

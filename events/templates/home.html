@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+
 <header class="masthead text-center text-white">
   <div class="masthead-content">
     <div class="container">
@@ -18,7 +19,23 @@
   <div class="bg-circle-3 bg-circle"></div>
   <div class="bg-circle-4 bg-circle"></div>
 </header>
+<div class="row">
+<form action="{% url 'home' %}" method="GET">
+    <input type="text" name='q' placeholder="Search here..." value="{{request.GET.q}}">
+    <input type="submit" value="Search">
+</form>
+
+<h5> Upcoming Events: </h5>
+  {% for e in events %}
+  
+
+   <div class="card-body">
+    <h5 class="card-title" style="color: 000034;">{{e.title}}</h5>
+    <p class="card-text" style="color: 000034;">{{e.date}}</p>
+    <p class="card-text" style="color: 000034;">{{e.time}}</p>
 
 
+    {% endfor %}
+</div>
 
 {% endblock %}
