@@ -1,22 +1,43 @@
 {% extends "base.html" %}
 
 {% block content %}
+<br>
+<br>
+<br>
+<br>
 
-	<h5> Dashboared: </h5>
+
+<div class="card">
+  <h5 class="card-header">My Events: </h5>
   {% for e in events %}
   
 {% if request.user == e.organizer %}
-   <div class="card-body">
-    <h5 class="card-title" style="color: 000034;">{{e.title}} <span>
-   
-    </span>
-    </h5>
-    <p class="card-text" style="color: 000034;">{{e.organizer}}</p>
-    <p class="card-text" style="color: 000034;">{{e.seats}}</p>
-{%endif%} 
+  <div class="card-body">
+    <h5 class="card-title">{{e.title}}</h5>
+    <p class="card-text">{{e.organizer}}</p>
+        <p class="card-text">{{e.seats}}</p>
+    <a href="{% url 'detail' e.id %}" class="btn btn-primary">More Details</a>
+  </div>
+  {%endif%} 
     {% endfor %}
+</div>
+
+<br>
+
+<div class="card">
+  <h5 class="card-header">Reserved Events: </h5>
+  {% for e in events %}
+  
+{% if request.user == e.organizer %}
+  <div class="card-body">
+    <h5 class="card-title">{{e.title}}</h5>
+    <p class="card-text">{{e.organizer}}</p>
+        <p class="card-text">{{e.seats}}</p>
+    <a href="{% url 'detail' e.id %}" class="btn btn-primary">More Details</a>
+  </div>
+  {%endif%} 
+    {% endfor %}
+</div>
+
 
 {% endblock content %}
-
-
-{# filter #}
