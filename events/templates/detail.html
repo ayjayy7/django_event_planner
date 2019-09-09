@@ -1,7 +1,9 @@
  {% extends "base.html" %}
 
 {% block content %}
-
+<br>
+<br>
+<br>
 
   <div class="card text-center">
    <div class="card-header" style="background-color: #e3f2fd; color: 000034;">
@@ -10,17 +12,38 @@
   </div>
    <div class="card-body">
     <h5 class="card-title" style="color: 000034;">{{event.title}} <span>
-    	<p>{{event.organizer}}</p>
+      <p>{{event.organizer}}</p>
       <p>{{event.description}}</p>
-      <p>{{event.datetime}}</p>
-      <p>{{event.seats}}</p>
+      <p>{{event.date}}</p>
+      <p>{{event.time}}</p>
+
+
     {% if request.user == event.organizer%}
-    <span>
-      <a href="{% url 'update' event.id %}" class="btn" style="background-color: #000034; color: white;">Update</a>
-      <a href="{% url 'delete' event.id %}" class="btn" style="background-color: #FFA500; color: #000034;">Delete</a>
-    </span>
-    {%endif%}
+	    <span>
+	      <a href="{% url 'update' event.id %}" class="btn" style="background-color: #000034; color: white;">Update</a>
+	      <a href="{% url 'delete' event.id %}" class="btn" style="background-color: #FFA500; color: #000034;">Delete</a>
+	    </span>
+
+		{% for r in reserves %}
+		 <h5>User: {{r.user.username}}</h5>
+		  <p>number of seats booked: {{r.book_seats}}</p>
+
+		{% endfor %}
+	   {%endif%}
   
+
+	{% if request.user  %}
+		{% if event.get_seats_left == 0 %}
+	    	<a href="#" class="btn" style="background-color: red; color: #000034;">Full</a>
+		{% else %}
+			<a href="{% url 'book' event.id %}" class="btn" style="background-color: #FFA500; color: #000034;">Book ticket</a>
+	    {%endif%}
+    
+	{%endif%}
+
+
+
+
   </div>
 </div>
 {% endblock content %}

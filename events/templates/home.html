@@ -24,19 +24,21 @@
     <input type="text" name='q' placeholder="Search here..." value="{{request.GET.q}}">
     <input type="submit" value="Search">
 </form>
+</div>
 
+
+<div class="row">
 <h5> Upcoming Events: </h5>
   {% for e in events %}
   
-
-
    <div class="card-body">
     <h5 class="card-title" style="color: 000034;">{{e.title}}</h5>
-    <p class="card-text" style="color: 000034;">{{e.datetime}}</p>
-
-
+    <p class="card-text" style="color: 000034;">{{e.date}}</p>
+    <p class="card-text" style="color: 000034;">{{e.time}}</p>
+    <a href="{% url 'detail' e.id %}" class="btn btn-primary">More Details</a>
 
     {% endfor %}
+</div>
 </div>
 
 {% endblock %}

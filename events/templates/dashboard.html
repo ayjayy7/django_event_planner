@@ -6,37 +6,55 @@
 <br>
 <br>
 
-
+<div class="container">
 <div class="card">
   <h5 class="card-header">My Events: </h5>
+  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12 my-3 d-flex align-items-stretch">
   {% for e in events %}
   
-{% if request.user == e.organizer %}
-  <div class="card-body">
-    <h5 class="card-title">{{e.title}}</h5>
-    <p class="card-text">{{e.organizer}}</p>
-        <p class="card-text">{{e.seats}}</p>
-    <a href="{% url 'detail' e.id %}" class="btn btn-primary">More Details</a>
-  </div>
-  {%endif%} 
-    {% endfor %}
+	{% if request.user == e.organizer %}
+	  <div class="card-body">
+	    <h5 class="card-title">{{e.title}}</h5>
+	        <p class="card-text">{{e.seats}}</p>
+	       
+
+	    <a href="{% url 'detail' e.id %}" class="btn btn-primary">More Details</a>
+	  </div>
+	{%endif%} 
+  {% endfor %}
+</div>
 </div>
 
 <br>
 
 <div class="card">
   <h5 class="card-header">Reserved Events: </h5>
-  {% for e in events %}
-  
-{% if request.user == e.organizer %}
-  <div class="card-body">
-    <h5 class="card-title">{{e.title}}</h5>
-    <p class="card-text">{{e.organizer}}</p>
-        <p class="card-text">{{e.seats}}</p>
-    <a href="{% url 'detail' e.id %}" class="btn btn-primary">More Details</a>
-  </div>
-  {%endif%} 
-    {% endfor %}
+  <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 my-3 d-flex align-items-stretch">
+
+  {% for ev in reserved %}
+	{% if request.user == ev.user %}
+	  <div class="card-body">
+	    <h5 class="card-title">{{ev.event}}</h5>
+
+	     <p> {{ev.seats}}</p>
+	     <p> {{ev.get_seats_booked}}</p>
+	    <p class="card-text">Number of tickets: {{ev.book_seats}}</p>
+	   
+
+	    <a href="{% url 'detail' ev.event.id %}" class="btn btn-primary">More Details</a>
+	  </div>
+	{%endif%} 
+  {% endfor %}
+
+
+
+</div>
+
+
+
+
+<a href="{% url 'create'%}" class="btn btn-primary btn-block">Create</a>
+</div>
 </div>
 
 
