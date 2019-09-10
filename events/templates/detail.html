@@ -11,11 +11,11 @@
   
   </div>
    <div class="card-body">
-    <h5 class="card-title" style="color: 000034;">{{event.title}} <span>
-      <p>{{event.organizer}}</p>
-      <p>{{event.description}}</p>
-      <p>{{event.date}}</p>
-      <p>{{event.time}}</p>
+    <h3 class="card-title" style="color: 000034;">{{event.title}} <span></h3>
+      <p><b>Organizer:</b> {{event.organizer}}</p>
+      <p><b>Event Descriptions:</b> {{event.description}}</p>
+      <p><b>Date:</b> {{event.date}}</p>
+      <p><b>Time:</b> {{event.time}}</p>
 
 
     {% if request.user == event.organizer%}
@@ -23,14 +23,15 @@
 	      <a href="{% url 'update' event.id %}" class="btn" style="background-color: #000034; color: white;">Update</a>
 	      <a href="{% url 'delete' event.id %}" class="btn" style="background-color: #FFA500; color: #000034;">Delete</a>
 	    </span>
-
+<br>
+  <br>
 		{% for r in reserves %}
-		 <h5>User: {{r.user.username}}</h5>
-		  <p>number of seats booked: {{r.book_seats}}</p>
+		 <h3>User:{{r.user.username}}</h3>
+		  <p><b>number of seats booked:</b> {{r.book_seats}}</p>
 
 		{% endfor %}
 	   {%endif%}
-  
+
 
 	{% if request.user  %}
 		{% if event.get_seats_left == 0 %}

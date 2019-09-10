@@ -24,37 +24,58 @@
   {% endfor %}
 </div>
 </div>
+</div>
 
-<br>
 
+
+
+
+<div class="container">
 <div class="card">
-  <h5 class="card-header">Reserved Events: </h5>
+  <h5 class="card-header">Upcoming Reserved Events: </h5>
   <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 my-3 d-flex align-items-stretch">
 
-  {% for ev in reserved %}
-	{% if request.user == ev.user %}
-	  <div class="card-body">
-	    <h5 class="card-title">{{ev.event}}</h5>
+	{% for e in up %}
 
-	     <p> {{ev.seats}}</p>
-	     <p> {{ev.get_seats_booked}}</p>
-	    <p class="card-text">Number of tickets: {{ev.book_seats}}</p>
-	   
+	{% if request.user == e.user %}
+   <div class="card-body">
+    <h5 class="card-title" style="color: 000034;">{{e.event}}</h5>
+    <p class="card-text" style="color: 000034;">{{e.event.date}}</p>
+    <p class="card-text" style="color: 000034;">{{e.event.time}}</p>
+    <a href="{% url 'detail' e.event.id %}" class="btn btn-primary">More Details</a>
+</div>
+{%endif%} 
+    {% endfor %}
 
-	    <a href="{% url 'detail' ev.event.id %}" class="btn btn-primary">More Details</a>
-	  </div>
-	{%endif%} 
+</div>
+</div>
+</div>
+
+
+
+
+<div class="container">
+<div class="card">
+  <h5 class="card-header">Previous Events: </h5>
+  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12 my-3 d-flex align-items-stretch">
+  {% for e in pre %}
+
+    {% if request.user == e.user %}
+      <div class="card-body">
+        <h5 class="card-title" style="color: 000034;">{{e.event}}</h5>
+    <p class="card-text" style="color: 000034;">{{e.event.date}}</p>
+    <p class="card-text" style="color: 000034;">{{e.event.time}}</p>
+        <a href="{% url 'detail' e.event.id %}" class="btn btn-primary">More Details</a>
+      </div>
+    {%endif%} 
   {% endfor %}
-
-
-
+</div>
+</div>
 </div>
 
 
-
-
+<div class="container">
 <a href="{% url 'create'%}" class="btn btn-primary btn-block">Create</a>
-</div>
 </div>
 
 

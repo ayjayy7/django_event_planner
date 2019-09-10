@@ -29,14 +29,20 @@ def home(request):
 
 # dashboard views
 def dashboard(request):
+
     if request.user.is_anonymous:
         return redirect('signin')
-    
+
+    up = BookEvent.objects.filter(user=request.user,event__date__gte=datetime.today())
+    pre = BookEvent.objects.filter(user=request.user,event__date__lte=datetime.today())
     events = request.user.events.all()
     reserved = request.user.booker.all()
     context = {
         "events": events,
         "reserved":reserved,
+        "up": up,
+        "pre":pre,
+       
         
     }
     return render(request, 'dashboard.html', context)
@@ -200,3 +206,6 @@ def event_book(request,event_id):
 # if somone one tried to access by url but not a register user this page will show up
 def access(request):
     return render(request,'access.html')
+
+
+

@@ -10,7 +10,7 @@
       {% if request.user.is_anonymous %}
         <a href="{% url 'signup' %}" class="btn btn-primary btn-xl rounded-pill mt-5">Sign up to find events!</a>
       {% else %}
-        <a href="#" class="btn btn-primary btn-xl rounded-pill mt-5">Find events!</a>
+        <a href="#down" class="btn btn-primary btn-xl rounded-pill mt-5">Find events!</a>
       {% endif %}
     </div>
   </div>
@@ -19,26 +19,53 @@
   <div class="bg-circle-3 bg-circle"></div>
   <div class="bg-circle-4 bg-circle"></div>
 </header>
-<div class="row">
+
+<br>
+
+<div class="container">
+
 <form action="{% url 'home' %}" method="GET">
-    <input type="text" name='q' placeholder="Search here..." value="{{request.GET.q}}">
-    <input type="submit" value="Search">
+
+<div class="input-group mb-3">
+  <input type="text" class="form-control" value="{{request.GET.q}}" name='q' placeholder="Search Here!" aria-label="Recipient's username" aria-describedby="button-addon2">
+  <div class="input-group-append">
+    <button class="btn btn-outline-primary" type="button" id="button-addon2">Search</button>
+  </div>
+
+</div>
 </form>
+
 </div>
 
 
-<div class="row">
-<h5> Upcoming Events: </h5>
-  {% for e in events %}
-  
-   <div class="card-body">
-    <h5 class="card-title" style="color: 000034;">{{e.title}}</h5>
-    <p class="card-text" style="color: 000034;">{{e.date}}</p>
-    <p class="card-text" style="color: 000034;">{{e.time}}</p>
-    <a href="{% url 'detail' e.id %}" class="btn btn-primary">More Details</a>
 
-    {% endfor %}
+
+
+<h1 id="down" style="color: #FF9103; text-align:center;"> Upcoming Events: </h1>
+
+<br>
+
+ {% for e in events %}
+
+<div class="container">
+<div class="card-deck">
+  <div style="border-color: #E80E4F;" class="card">
+    <div class="card-body">
+      <a style="text-decoration:none" href="{% url 'detail' e.id %}"><h4 class="card-title" style="color: #E80E4F">{{e.title|title}}</h4></a>
+      <p class="card-text" style="color: black;"><b>Time:</b> {{e.time}}</p>
+      <p class="card-text" style="color: black;"><b>Date:</b> {{e.date}}</p>
+      <a href="{% url 'detail' e.id %}" class="btn btn-dark" >More Details</a>
+    </div>
+  </div>
+  </div>
 </div>
-</div>
+</div> 
+ <br>
+ {% endfor %}
+
+
 
 {% endblock %}
+
+
+
