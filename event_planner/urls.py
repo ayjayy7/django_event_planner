@@ -29,7 +29,8 @@ urlpatterns = [
     path('', include('events.urls')),
 
     path('events/list/', views.UpcomingList.as_view(), name="events-list"),
-    path('organizer/list/', views.OrganizerList.as_view(), name="organizer-list"),
+    #error
+    path('organizer/list/<int:organizer_id>/', views.OrganizerList.as_view(), name="organizer-list"),
 
     
     path('user/list/', views.UserList.as_view(), name="user-list"), 

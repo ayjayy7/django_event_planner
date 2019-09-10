@@ -3,7 +3,7 @@ from rest_framework.generics import (ListAPIView, RetrieveAPIView, RetrieveUpdat
 from events.models import Event, BookEvent
 
 from .serializers import (EventSerializer, OrganizerSerializer, UserSerializer, UserCreateSerializer, UpdateEventSerializer, 
-    EventAttendantsSerializer, AttendSerializer,UserListSerializer, AttendantsSerializer)
+    EventAttendantsSerializer, AttendSerializer,UserListSerializer, AttendantsSerializer, OrganizerEventSerializer)
 
 from .permissions import IsOrganizer, IsAttendant
 from datetime import datetime
@@ -18,9 +18,11 @@ class UpcomingList(ListAPIView):
 
 
 class OrganizerList(ListAPIView):
-    queryset = Event.objects.all()
-    serializer_class = OrganizerSerializer
+    serializer_class = OrganizerEventSerializer
+    permission_classes = [IsAuthenticated]
     
+    def get_queryset(self):
+        return Event.objects.filter(organizer_id=self.kwargs['organizer_id'])
 
 
 class UserList(ListAPIView):

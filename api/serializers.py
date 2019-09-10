@@ -6,19 +6,25 @@ from events.models import Event, BookEvent
 class EventSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Event
-		exclude = ['organizer']
+		exclude = ['organizer', 'id']
 
 
 
 class OrganizerSerializer(serializers.ModelSerializer):
-    name = serializers.SerializerMethodField()
+    organizer = serializers.SerializerMethodField()
 
     class Meta:
         model = Event
-        fields = '__all__'
+        fields = ['organizer','title','location','date','time', 'seats']
 
-    def get_name(self, obj):
-        return (obj.organizer.first_name + obj.organizer.last_name)
+    def get_organizer(self, obj):
+        return (obj.organizer.username)
+
+class OrganizerEventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = ['title','location','date','time', 'seats']
+
 
 
 
@@ -61,14 +67,14 @@ class EventAttendantsSerializer(serializers.ModelSerializer):
 
 class AttendSerializer(serializers.ModelSerializer):
     username = serializers.SerializerMethodField()
-    eventname = serializers.SerializerMethodField()
+    event_name = serializers.SerializerMethodField()
     class Meta:
         model = BookEvent
-        fields = ['username', 'eventname']
+        fields = ['username', 'event_name']
     
     def get_username(self,obj):
         return obj.user.username
-    def get_eventname(self,obj):
+    def get_event_name(self,obj):
         return obj.event.title
 
 class UserListSerializer(serializers.ModelSerializer):
@@ -76,7 +82,7 @@ class UserListSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = BookEvent
-        exclude = ['user', 'event']
+        exclude = ['user', 'event', 'id']
 
     def get_events(self, obj):
         return (obj.event.title)
