@@ -29,7 +29,6 @@ def home(request):
 
 # dashboard views
 def dashboard(request):
-
     if request.user.is_anonymous:
         return redirect('signin')
 
@@ -42,8 +41,6 @@ def dashboard(request):
         "reserved":reserved,
         "up": up,
         "pre":pre,
-       
-        
     }
     return render(request, 'dashboard.html', context)
 
@@ -108,7 +105,7 @@ class Logout(View):
 
 def event_detail(request, event_id):
     event = Event.objects.get(id=event_id)
-    reserves = BookEvent.objects.filter(event=event)
+    reserves = BookEvent.objects.filter(event=event)    # event.bookings
     context = {
         "event": event,
         "reserves":reserves,
@@ -144,8 +141,9 @@ def event_update(request, event_id):
         return redirect('signin')
     # if user not the owner of the event
     event_obj = Event.objects.get(id=event_id)
-    if not request.user.is_staff:
-        return redirect("no-access")
+
+    if not(request.user):
+        return redirect("no-access")        #add URL
 
     form = EventForm(instance=event_obj)
     if request.method == "POST":
@@ -164,8 +162,10 @@ def event_delete(request, event_id):
     if request.user.is_anonymous:
         return redirect('signin')
     event_obj = Event.objects.get(id=event_id)
-    if not request.user.is_staff:
-        return redirect("no-access")
+
+    # Non-staff organizer should be allowed to delete the event
+    if not(request.user):
+        return redirect("no-access")        #add URL       #add URL
     
     event_obj.delete()
     messages.warning(request, "Event Deleted Successfully")

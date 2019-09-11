@@ -3,13 +3,17 @@
 {% block content %}
 <header class="masthead text-center text-white">
   <div class="masthead-content">
+    <br>
+    <br>
+    <br>
+    <br>
     <div class="container">
-        <div class="jumbotron">
-          <h2 class="masthead-subheading mb-0">Sign Up</h2>
+        <div class="jumbotron" style="background-color: #36344c;">
+          <h2 class="masthead-subheading mb-0" style="color: white;">Sign Up</h2>
           <form action="{% url 'signup' %}" method="POST">
             {% csrf_token %}
             {{form|crispy}}
-            <input class = "btn btn-primary btn-xl rounded-pill mt-5" type="submit" value="Sign Up">
+            <input class = "btn btn-dark btn-xl rounded-pill mt-5" type="submit" value="Sign Up">
           </form>
       </div>
     </div>

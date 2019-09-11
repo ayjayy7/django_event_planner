@@ -11,7 +11,17 @@ class Event(models.Model):
     date = models.DateField()
     time = models.TimeField()
     seats = models.IntegerField()
+    logo = models.ImageField(upload_to='restaurant_logos', null=True)
 
+    COOKING = "cooking"
+    CONCERT = "concert"
+    CONFERENCE="Conference"
+    CHARITY="charity"
+    ART="art"
+    PLAY="play"
+    OTHERS="others"
+    CHOICES = ( (COOKING, "cooking"), (CONCERT, "concert"), (CONFERENCE,"Conference"), (CHARITY,"charity"),(ART,"art"),(PLAY,"play"),(OTHERS,"others") )
+    choice = models.CharField(max_length=7, choices=CHOICES,)
     def __str__(self):
         return self.title
 
@@ -30,6 +40,7 @@ class Event(models.Model):
 class BookEvent(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='booker')
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='bookings')
-    phone_number = models.PositiveIntegerField()
+    phone_number = models.CharField(max_length=120)  #CharField
     book_seats = models.PositiveIntegerField()
+
 

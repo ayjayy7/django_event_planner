@@ -6,29 +6,32 @@
 <br>
 
   <div class="card text-center">
-   <div class="card-header" style="background-color: #e3f2fd; color: 000034;">
-    
+   <div class="card-header" style="background-color: #e3f2fd;">
+ <h3 style="color: #f82248;"><b>{{event.title}}</b> </h3>
   
   </div>
-   <div class="card-body">
-    <h3 class="card-title" style="color: 000034;">{{event.title}} <span></h3>
-      <p><b>Organizer:</b> {{event.organizer}}</p>
-      <p><b>Event Descriptions:</b> {{event.description}}</p>
-       <p><b>Locat:</b> {{event.location}}</p>
-      <p><b>Date:</b> {{event.date}}</p>
-      <p><b>Time:</b> {{event.time}}</p>
+  <div class="continer">
+   <div class="card-body" style="background-color: #36344c;">
+
+      <p style="color: white;"><b>Organizer:</b> {{event.organizer}}</p>
+      <p style="color: white;"><b>Category:</b> {{e.choice}}</p>
+      <p style="color: white;"><b>Event Descriptions:</b> {{event.description}}</p>
+       <p style="color: white;"><b>Locat:</b> {{event.location}}</p>
+      <p style="color: white;"><b>Date:</b> {{event.date}}</p>
+      <p style="color: white;"><b>Time:</b> {{event.time}}</p>
 
 
     {% if request.user == event.organizer%}
 	    <span>
-	      <a href="{% url 'update' event.id %}" class="btn" style="background-color: #000034; color: white;">Update</a>
-	      <a href="{% url 'delete' event.id %}" class="btn" style="background-color: #FFA500; color: #000034;">Delete</a>
+	      <a href="{% url 'update' event.id %}" class="btn btn-dark" >Update</a>
+	      <a href="{% url 'delete' event.id %}" class="btn btn-dark" >Delete</a>
+
 	    </span>
 <br>
   <br>
 		{% for r in reserves %}
-		 <h3>User:{{r.user.username}}</h3>
-		  <p><b>number of seats booked:</b> {{r.book_seats}}</p>
+		 <h3 style="color: white;">User:{{r.user.username}}</h3>
+		  <p style="color: white;"><b>number of seats booked:</b> {{r.book_seats}}</p>
 
 		{% endfor %}
 	   {%endif%}
@@ -36,16 +39,16 @@
 
 	{% if request.user  %}
 		{% if event.get_seats_left == 0 %}
-	    	<a href="#" class="btn" style="background-color: red; color: #000034;">Full</a>
+	    	<a href="#" class="btn btn-warning" style="color: white; color: #000034;">Full</a>
 		{% else %}
-			<a href="{% url 'book' event.id %}" class="btn" style="background-color: #FFA500; color: #000034;">Book ticket</a>
+			<a href="{% url 'book' event.id %}" class="btn btn-dark" style="color: white;" >Book ticket</a>
 	    {%endif%}
     
 	{%endif%}
 
 
 
-
+</div>
   </div>
 </div>
 {% endblock content %}

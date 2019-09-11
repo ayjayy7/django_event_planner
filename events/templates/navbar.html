@@ -1,12 +1,15 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
   <div class="container">
-    <a class="navbar-brand" href="{% url 'home' %}">Django Event Planner</a>
+    <a class="navbar-brand" href="{% url 'home' %}"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav ml-auto">
+      <ul class="navbar-nav ml-auto nav-menu">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}">Home</a>
+        </li>
         {% if request.user.is_anonymous %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
@@ -18,20 +21,20 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">{{ request.user }}</a>
-        </li>
-
-        
-
+  
         <li class="nav-item">
           <a class="nav-link" href="{% url 'create' %}">Create</a>
         </li>
-
-        {% endif %}
-       <li class="nav-item">
+        <li class="nav-item">
           <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
         </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="#">{{ request.user }}</a>
+        </li>
+        {% endif %}
+
+
       </ul>
     </div>
   </div>

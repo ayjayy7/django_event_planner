@@ -2,23 +2,41 @@
 
 {% block content %}
 
-<header class="masthead text-center text-white">
-  <div class="masthead-content">
+<header id="header">
     <div class="container">
-      <h1 class="masthead-heading mb-0">All the events,</h1>
-      <h2 class="masthead-subheading mb-0">You could ever want...</h2>
-      {% if request.user.is_anonymous %}
-        <a href="{% url 'signup' %}" class="btn btn-primary btn-xl rounded-pill mt-5">Sign up to find events!</a>
-      {% else %}
-        <a href="#down" class="btn btn-primary btn-xl rounded-pill mt-5">Find events!</a>
-      {% endif %}
+
+      <div id="logo" class="pull-left">
+        <!-- Uncomment below if you prefer to use a text logo -->
+        <!-- <h1><a href="#main">C<span>o</span>nf</a></h1>-->
+        <a href="#intro" class="scrollto"><img src="/static/img/whiteevented.png" alt="" title=""></a>
+      </div>
+
+  
     </div>
-  </div>
-  <div class="bg-circle-1 bg-circle"></div>
-  <div class="bg-circle-2 bg-circle"></div>
-  <div class="bg-circle-3 bg-circle"></div>
-  <div class="bg-circle-4 bg-circle"></div>
-</header>
+  </header><!-- #header -->
+
+  <!--==========================
+    Intro Section
+  ============================-->
+  <section id="intro">
+    <div class="intro-container wow fadeIn">
+    
+    </div>
+  </section>
+
+  <main id="main">
+
+
+
+
+<header class="masthead text-center text-white">
+
+
+
+
+
+
+<div class="container baaack">
 
 <br>
 
@@ -41,27 +59,42 @@
 
 
 
-<h1 id="down" style="color: #FF9103; text-align:center;"> Upcoming Events: </h1>
 
-<br>
 
- {% for e in events %}
+<!--==========================
+      Speakers Section
+    ============================-->
+    <section id="speakers" class="wow fadeInUp">
+      <div class="container">
+        <div class="section-header" >
+          <h2 style="color: white;">Upcoming Events:</h2>
 
-<div class="container">
-<div class="card-deck">
-  <div style="border-color: #E80E4F;" class="card">
-    <div class="card-body">
-      <a style="text-decoration:none" href="{% url 'detail' e.id %}"><h4 class="card-title" style="color: #E80E4F">{{e.title|title}}</h4></a>
-      <p class="card-text" style="color: black;"><b>Time:</b> {{e.time}}</p>
-      <p class="card-text" style="color: black;"><b>Date:</b> {{e.date}}</p>
-      <a href="{% url 'detail' e.id %}" class="btn btn-dark" >More Details</a>
-    </div>
-  </div>
-  </div>
-</div>
-</div> 
- <br>
+        </div>
+
+        <div class="row">
+           {% for e in events %}
+          <div class="col-lg-4 col-md-6">
+            <div class="speaker">
+               {% if e.logo %}
+              <img src="{{e.logo.url}}" alt="#" class="img-fluid" style="height:250px">
+              {% endif %}
+              <div class="details">
+                <h3><a href="{% url 'detail' e.id %}">{{e.title|title}}</a></h3>
+
+                
+      <p class="card-text" style="color: white;"><b>Date:</b> {{e.date}}</p>
+                <p class="card-text" style="color: white;"><b>Location:</b> {{e.location}}</p>
+              </div>
+            </div>
+          </div>
+
+
+
+
  {% endfor %}
+
+</div>
+</div>
 
 
 

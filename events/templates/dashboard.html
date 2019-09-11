@@ -6,19 +6,19 @@
 <br>
 <br>
 
-<div class="container">
-<div class="card">
-  <h5 class="card-header">My Events: </h5>
-  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12 my-3 d-flex align-items-stretch">
+<div class="container" >
+<div class="card" style="background-color: #36344c;">
+  <h5 class="card-header" style="color: white;">My Events: </h5>
+  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12 my-3 d-flex align-items-stretch">
   {% for e in events %}
   
 	{% if request.user == e.organizer %}
-	  <div class="card-body">
-	    <h5 class="card-title">{{e.title}}</h5>
-	        <p class="card-text">{{e.seats}}</p>
+	  <div class="card-body" style="background-color: #36344c;">
+	    <h5 class="card-title" style="color: white;">{{e.title}}</h5>
+	        <p class="card-text" style="color: white;">{{e.seats}}</p>
 	       
 
-	    <a href="{% url 'detail' e.id %}" class="btn btn-primary">More Details</a>
+	    <a href="{% url 'detail' e.id %}" class="btn btn-dark">More Details</a>
 	  </div>
 	{%endif%} 
   {% endfor %}
@@ -30,19 +30,19 @@
 
 
 
-<div class="container">
-<div class="card">
-  <h5 class="card-header">Upcoming Reserved Events: </h5>
-  <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 my-3 d-flex align-items-stretch">
+<div class="container" >
+<div class="card" style="background-color: #36344c;">
+  <h5 class="card-header" style="color: white;">Upcoming Reserved Events: </h5>
+  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12 my-3 d-flex align-items-stretch">
 
 	{% for e in up %}
 
 	{% if request.user == e.user %}
-   <div class="card-body">
-    <h5 class="card-title" style="color: 000034;">{{e.event}}</h5>
-    <p class="card-text" style="color: 000034;">{{e.event.date}}</p>
-    <p class="card-text" style="color: 000034;">{{e.event.time}}</p>
-    <a href="{% url 'detail' e.event.id %}" class="btn btn-primary">More Details</a>
+   <div class="card-body" style="background-color: #36344c;">
+    <h5 class="card-title" style="color: white;">{{e.event}}</h5>
+    <p class="card-text" style="color: white;">{{e.event.date}}</p>
+    <p class="card-text" style="color: white;">{{e.event.time}}</p>
+    <a href="{% url 'detail' e.event.id %}" class="btn btn-dark">More Details</a>
 </div>
 {%endif%} 
     {% endfor %}
@@ -54,18 +54,18 @@
 
 
 
-<div class="container">
-<div class="card">
-  <h5 class="card-header">Previous Events: </h5>
-  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12 my-3 d-flex align-items-stretch">
+<div class="container" >
+<div class="card" style="background-color: #36344c;">
+  <h5 class="card-header" style="color: white;">Previous Events: </h5>
+  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12 my-3 d-flex align-items-stretch">
   {% for e in pre %}
 
     {% if request.user == e.user %}
-      <div class="card-body">
-        <h5 class="card-title" style="color: 000034;">{{e.event}}</h5>
-    <p class="card-text" style="color: 000034;">{{e.event.date}}</p>
-    <p class="card-text" style="color: 000034;">{{e.event.time}}</p>
-        <a href="{% url 'detail' e.event.id %}" class="btn btn-primary">More Details</a>
+      <div class="card-body" style="background-color: #36344c;">
+        <h5 class="card-title" style="color: white;">{{e.event}}</h5>
+    <p class="card-text" style="color: white;">{{e.event.date}}</p>
+    <p class="card-text" style="color: white;">{{e.event.time}}</p>
+        <a href="{% url 'detail' e.event.id %}" class="btn btn-dark" style="color: white;">More Details</a>
       </div>
     {%endif%} 
   {% endfor %}
@@ -73,9 +73,10 @@
 </div>
 </div>
 
+<br>
 
 <div class="container">
-<a href="{% url 'create'%}" class="btn btn-primary btn-block">Create</a>
+<a href="{% url 'create'%}" class="btn btn-dark btn-block" style="color: white;">Create</a>
 </div>
 
 

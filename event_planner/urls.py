@@ -43,7 +43,7 @@ urlpatterns = [
     
     path('event/<int:event_id>/attendants/', views.AttendantsView.as_view(), name="event-attendants"),
 
-    path('log/', TokenObtainPairView.as_view(), name="login"),
+    path('log/', TokenObtainPairView.as_view(), name="log"),
     path('register/',  views.Register.as_view() , name="register"),
 ]
 
