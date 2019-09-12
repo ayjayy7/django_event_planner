@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import qrcode
 
 
 
@@ -42,6 +43,11 @@ class BookEvent(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='bookings')
     phone_number = models.CharField(max_length=120)  #CharField
     book_seats = models.PositiveIntegerField()
+
+    
+        
+
+
 
 
 class Profile(models.Model):

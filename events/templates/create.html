@@ -9,7 +9,7 @@
 	<form action="{% url 'create' %}" method="POST" enctype="multipart/form-data" style="color:white;">
 		{% csrf_token %}
 		{{form|crispy}}
-		<input type="submit" value="Create" class="btn" style="background-color: #e3f2fd; color: black;">
+		<input type="submit" value="Create" class="btn btn-dark" ">
 	</form>
 </div>
 {% endblock content %}

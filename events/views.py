@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Event, BookEvent, Profile
 from django.db.models import Q
 from datetime import datetime 
+import qrcode
 
 # home views
 def home(request):
@@ -27,15 +28,23 @@ def home(request):
     return render(request, 'home.html', context)
 
 
-# dashboard views
+
+
 def dashboard(request):
     if request.user.is_anonymous:
-        return redirect('signin')
+        return redirect('login')
 
     up = BookEvent.objects.filter(user=request.user,event__date__gte=datetime.today())
     pre = BookEvent.objects.filter(user=request.user,event__date__lte=datetime.today())
     events = request.user.events.all()
     reserved = request.user.booker.all()
+    qr = qrcode.QRCode(version=1,box_size=15,border=5)
+    data = ('hello')
+    qr.add_data(data)
+    qr.make(fit=True)
+    img = qr.make_image(fill='black', back_color='white')
+    img.save('reservation.png')
+        
     context = {
         "events": events,
         "reserved":reserved,
@@ -118,7 +127,7 @@ def event_create(request):
     form = EventForm()
     # if user not registerd go to sign in page
     if request.user.is_anonymous:
-        return redirect('signin')
+        return redirect('login')
     if request.method == "POST":
         form = EventForm(request.POST, request.FILES)
         if form.is_valid():
@@ -138,12 +147,12 @@ def event_update(request, event_id):
     
     # if user not registerd go to sign in page
     if request.user.is_anonymous:
-        return redirect('signin')
+        return redirect('login')
     # if user not the owner of the event
     event_obj = Event.objects.get(id=event_id)
 
-    if not(request.user):
-        return redirect("no-access")        #add URL
+    if not(event_obj.organizer == request.user):
+        return redirect("access")        #add URL
 
     form = EventForm(instance=event_obj)
     if request.method == "POST":
@@ -160,12 +169,12 @@ def event_update(request, event_id):
 
 def event_delete(request, event_id):
     if request.user.is_anonymous:
-        return redirect('signin')
+        return redirect('login')
     event_obj = Event.objects.get(id=event_id)
 
     # Non-staff organizer should be allowed to delete the event
-    if not(request.user):
-        return redirect("no-access")        #add URL       #add URL
+    if not(event_obj.organizer == request.user):
+        return redirect("access")        #add URL       #add URL
     
     event_obj.delete()
     messages.warning(request, "Event Deleted Successfully")
@@ -193,6 +202,12 @@ def event_book(request,event_id):
                 event_obj.seats -= seat.book_seats
                 seat.save()
                 print("booked")
+                qr = qrcode.QRCode(version=1,box_size=15,border=5)
+                data = "%s%s%s" % (seat.book_seats, seat.user, seat.event.title)
+                qr.add_data(data)
+                qr.make(fit=True)
+                img = qr.make_image(fill='black', back_color='white')
+                img.save('media/{}.png'.format(seat.id))
                 return redirect('dashboard')
                
     context={

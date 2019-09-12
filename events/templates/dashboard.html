@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
 <br>
 <br>
@@ -33,23 +33,59 @@
 <div class="container" >
 <div class="card" style="background-color: #36344c;">
   <h5 class="card-header" style="color: white;">Upcoming Reserved Events: </h5>
+
+<br>
+<div style="padding-left:30px;" class="row">
+ 
+
+{% for e in up %}
+
+{% if request.user == e.user %}
+
+
+<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 my-3 d-flex align-items-stretch">
+<div  class="card border-primary mb-3" style="width: 18rem;">
+  <img style="height:250px" class="card-img-top" src="/media/{{e.id}}.png" alt="Card image cap">
+  <div class="card-body">
+
+    <span class="badge badge-pill badge-warning">Booked</span>
+<div style="padding-top:10px;" > </div>
+<a href="{% url 'detail' e.event.id %}"><h5 style="font-weight:bold;" class="card-title">{{e.event|title}}</h5></a>
+     
+     <p class="card-text"><span style="font-weight:bold;"> Location: </span> {{e.event.location}} <br> <span style="font-weight:bold;"> Date: </span> {{e.event.date}} </p>
+  
+
+
+
+  </div>
+    <div class="card-footer text-muted">
+            <a id="btn" href="{% url 'detail' e.event.id %}"><button type="button" class="btn btn-dark btn-block">More Details</button></a>
+  </div>
+</div>
+</div>
+{% endif %} 
+{% endfor %}
+</div>
+
+<!---
+
+  {% for e in up %}
   <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12 my-3 d-flex align-items-stretch">
 
-	{% for e in up %}
-
-	{% if request.user == e.user %}
+  {% if request.user == e.user %}
    <div class="card-body" style="background-color: #36344c;">
     <h5 class="card-title" style="color: white;">{{e.event}}</h5>
     <p class="card-text" style="color: white;">{{e.event.date}}</p>
     <p class="card-text" style="color: white;">{{e.event.time}}</p>
+    <img src="{% static 'img/QRcodes/reservation.png' %}" alt="#" class="img-fluid" style="height:250px">
     <a href="{% url 'detail' e.event.id %}" class="btn btn-dark">More Details</a>
 </div>
 {%endif%} 
     {% endfor %}
 
-</div>
-</div>
-</div>
+-->
+
+
 
 
 

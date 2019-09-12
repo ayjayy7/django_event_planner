@@ -7,10 +7,11 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto nav-menu">
+
+        {% if request.user.is_anonymous %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'home' %}">Home</a>
         </li>
-        {% if request.user.is_anonymous %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
         </li>
@@ -18,10 +19,13 @@
           <a class="nav-link" href="{% url 'login' %}">Log In</a>
         </li>
         {% else %}
+
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+          <a><span style="color:#C9295E">{{ request.user|title}} </span> </a>
         </li>
-  
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}">Home</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'create' %}">Create</a>
         </li>
@@ -30,10 +34,11 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="#">{{ request.user }}</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="{% url 'profile' %}">Edit Profile</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
         </li>
         {% endif %}
 

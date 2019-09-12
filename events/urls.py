@@ -11,6 +11,7 @@ urlpatterns = [
     path('login/', Login.as_view(), name='login'),
     path('logout/', Logout.as_view(), name='logout'),
     path('dashboard/', views.dashboard, name='dashboard'),
+    path('access/', views.access, name='access'),
     path('detail/<int:event_id>/', views.event_detail, name='detail'),
     path('create/', views.event_create, name='create'),
     path('update/<int:event_id>/', views.event_update, name='update'),
