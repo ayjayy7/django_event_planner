@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.views import View
-from .forms import UserSignup, UserLogin, EventForm, BookingForm
+from .forms import UserSignup, UserLogin, EventForm, BookingForm, UserUpdateForm
 
 # for message functions
 from django.contrib import messages
-
-from .models import Event, BookEvent
+from django.contrib.auth.decorators import login_required
+from .models import Event, BookEvent, Profile
 from django.db.models import Q
 from datetime import datetime 
 
@@ -206,6 +206,29 @@ def event_book(request,event_id):
 # if somone one tried to access by url but not a register user this page will show up
 def access(request):
     return render(request,'access.html')
+
+
+
+
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        if u_form.is_valid():
+            u_form.save()
+            messages.success(request, f'Your account has been updated!')
+            return redirect('profile')
+
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+
+    context = {
+        'u_form': u_form,
+    }
+
+    return render(request, 'profile.html', context)
+
+
 
 
 
